@@ -1,0 +1,26 @@
+{
+  "name": "quasar-app-extension-spa-template",
+  "version": "0.0.1",
+  "description": "Create a fully working Quasar website from a single configuration file using a pre-defined template.",
+  "author": "Stefan van Herwijnen",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stefanvanherwijnen/quasar-app-extension-qtemplater"
+  },
+  "bugs": "https://github.com/stefanvanherwijnen/quasar-app-extension-qtemplater/issues",
+  "homepage": "",
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "devDependencies": {
+    "node-html-parser": "^1.2.13",
+    "string-strip-html": "^4.3.17"
+  }
+}
