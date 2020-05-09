@@ -6,18 +6,17 @@
  */
 const fs = require('fs')
 const stripHtml = require("string-strip-html");
+const { execSync } = require('child_process');
 
 module.exports = function (api) {
   let configuration
   if (api.hasExtension('@quasar/qmarkdown')) {
-    console.log(fs.existsSync(api.resolve.app('configuration.json')))
     if (!fs.existsSync(api.resolve.app('configuration.json'))) {
       // Not so nice, but only way to prevent a "successful" install?
       throw Error('Please place a configuration.json in the root of your app folder')
     } else {
       const file = fs.readFileSync(api.resolve.app('configuration.json'), 'utf8')
       configuration = JSON.parse(file)
-      console.log(configuration)
     }
     if (!fs.existsSync(api.resolve.app('icon.png'))) {
       throw Error('Please place an icon.png in the root of your app folder')
@@ -49,6 +48,12 @@ module.exports = function (api) {
     //   const content = stripHtml(file.substring(start, end))
     //   console.log(content)
     // }
+    try {
+      console.log('Running \'icongenie generate -m spa -i icon.png\'')
+      const execResult = execSync('icongenie generate -m spa -i icon.png')
+    } catch (e) {
+
+    }
   } else {
     console.log('Please instal QMarkdown first')
     console.log('quasar ext add @quasar/qmarkdown')

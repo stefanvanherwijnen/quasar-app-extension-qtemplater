@@ -2,7 +2,7 @@
   <q-page>
     <div class="block window-width row justify-between">
 
-      <q-parallax src="https://cdn.quasar.dev/img/parallax2.jpg">
+      <q-parallax src="statics/images/landing/landing.jpg">
         <q-card
           class="q-pa-lg"
           :style="{ 'background-color': $q.dark.isActive ? 'rgba(0, 0, 0, 0.7)' : 'rgba(240, 240, 240, 0.7)' }"

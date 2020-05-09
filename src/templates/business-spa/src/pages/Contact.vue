@@ -13,7 +13,7 @@
           <q-item-label overline><%= address.label %></q-item-label>
           <q-item-label>
             <a :href="'mailto:<%= address.email %>'">
-              <%= address.email %>
+              {{ '<%= address.email %>' }}
             </a>
           </q-item-label>
         </q-item-section>
