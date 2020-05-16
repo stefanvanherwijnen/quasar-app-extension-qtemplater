@@ -74,6 +74,10 @@
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  meta: {
+    title: 'Home',
+    titleTemplate: title => `${title} - <%= website.name %>`
+  }
 }
 </script>

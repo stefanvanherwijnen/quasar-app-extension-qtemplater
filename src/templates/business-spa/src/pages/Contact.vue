@@ -59,7 +59,7 @@ export default {
   name: 'PageContact',
   meta: {
     title: '<%= contact.label %>',
-    titleTemplate: title => '<%= contact.label %> - <%= website.name %>'
+    titleTemplate: title => `${title} - <%= website.name %>`
   }
 }
 </script>

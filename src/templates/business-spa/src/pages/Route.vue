@@ -41,7 +41,7 @@ export default {
   name: 'PageRoute',
   meta: {
     title: '<%= route.label %>',
-    titleTemplate: title => '<%= route.label %> - <%= website.name %>'
+    titleTemplate: title => `${title} - <%= website.name %>`
   }
 }
 </script>
