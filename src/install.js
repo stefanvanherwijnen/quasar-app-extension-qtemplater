@@ -11,11 +11,11 @@ const { execSync } = require('child_process');
 module.exports = function (api) {
   let configuration
   if (api.hasExtension('@quasar/qmarkdown')) {
-    if (!fs.existsSync(api.resolve.app('configuration.json'))) {
+    if (!fs.existsSync(api.resolve.app('qtemplater.json'))) {
       // Not so nice, but only way to prevent a "successful" install?
-      throw Error('Please place a configuration.json in the root of your app folder')
+      throw Error('Please place a qtemplater.json in the root of your app folder')
     } else {
-      const file = fs.readFileSync(api.resolve.app('configuration.json'), 'utf8')
+      const file = fs.readFileSync(api.resolve.app('qtemplater.json'), 'utf8')
       configuration = JSON.parse(file)
     }
     if (!fs.existsSync(api.resolve.app('icon.png'))) {

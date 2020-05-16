@@ -11,11 +11,13 @@
     </q-tabs>
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="website">
-        <q-input v-model="configuration.website.name" label="Name" />
+        <q-input style="max-width: 350px" v-model="configuration.website.name" label="Name" />
       </q-tab-panel>
 
       <q-tab-panel name="css">
+        <a href="https://color.adobe.com/create">https://color.adobe.com/create</a>
         <q-input
+          style="max-width: 350px"
           v-for="(color, key) in configuration.css"
           :key="key"
           v-model="configuration.css[key]"
@@ -32,10 +34,19 @@
       </q-tab-panel>
 
       <q-tab-panel name="landingPage">
-        <q-input v-model="configuration.landingPage.title" label="Title" />
-        <q-input v-model="configuration.landingPage.header" label="Header" />
-        <q-input v-model="configuration.landingPage.description" label="Description" />
+        <q-input style="max-width: 350px" v-model="configuration.landingPage.title" label="Title" />
         <q-input
+          style="max-width: 350px"
+          v-model="configuration.landingPage.header"
+          label="Header"
+        />
+        <q-input
+          style="max-width: 350px"
+          v-model="configuration.landingPage.description"
+          label="Description"
+        />
+        <q-input
+          style="max-width: 350px"
           type="textarea"
           v-model="configuration.landingPage.content"
           label="Content"
@@ -44,13 +55,21 @@
           class="fit q-pa-sm"
         />
 
-        <q-input v-model="configuration.landingPage.CTA.message" label="Call to action message" />
+        <q-input
+          style="max-width: 350px"
+          v-model="configuration.landingPage.CTA.message"
+          label="Call to action message"
+        />
 
-        <q-input v-model="configuration.landingPage.CTA.url" label="Call to action url" />
+        <q-input
+          style="max-width: 350px"
+          v-model="configuration.landingPage.CTA.route"
+          label="Call to action route"
+        />
       </q-tab-panel>
 
       <q-tab-panel name="about">
-        <q-input v-model="configuration.about.label" label="Label" />
+        <q-input style="max-width: 350px" v-model="configuration.about.label" label="Label" />
         <q-splitter v-model="splitter">
           <template v-slot:before>
             <div class="q-pa-md">
@@ -75,7 +94,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="contact">
-        <q-input v-model="configuration.contact.label" label="Label" />
+        <q-input style="max-width: 350px" v-model="configuration.contact.label" label="Label" />
         <q-list separator bordered style="max-width: 300px">
           <q-item dense>
             <q-item-section>
@@ -86,6 +105,7 @@
                 round
                 flat
                 icon="add"
+                color="green"
                 @click="configuration.contact.email.addresses.push({email: '', label: '' })"
               />
             </q-item-section>
@@ -93,11 +113,28 @@
           <q-item v-for="(email, key) in configuration.contact.email.addresses" :key="key">
             <q-item-section>
               <q-item-label overline>
-                <q-input label="Label" v-model="configuration.contact.email.addresses[key].label" />
+                <q-input
+                  style="max-width: 350px"
+                  label="Label"
+                  v-model="configuration.contact.email.addresses[key].label"
+                />
               </q-item-label>
               <q-item-label>
-                <q-input label="Email" v-model="configuration.contact.email.addresses[key].email" />
+                <q-input
+                  style="max-width: 350px"
+                  label="Email"
+                  v-model="configuration.contact.email.addresses[key].email"
+                />
               </q-item-label>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                round
+                flat
+                icon="remove"
+                color="red"
+                @click="configuration.contact.email.addresses.splice(key, 1)"
+              />
             </q-item-section>
           </q-item>
         </q-list>
@@ -112,6 +149,7 @@
                 round
                 flat
                 icon="add"
+                color="green"
                 @click="configuration.contact.phone.numbers.push({number: '', label: '', icon: '' })"
               />
             </q-item-section>
@@ -119,10 +157,18 @@
           <q-item v-for="(number, key) in configuration.contact.phone.numbers" :key="key">
             <q-item-section avatar>
               <q-btn-dropdown :icon="number.icon">
+                <q-input
+                  v-model="iconPickerFilter"
+                  label="Filter"
+                  outlined
+                  clearable
+                  class="q-ma-md"
+                />
                 <q-icon-picker
                   v-model="configuration.contact.phone.numbers[key].icon"
                   icon-set="material-icons"
                   tooltips
+                  :filter="iconPickerFilter"
                   :pagination.sync="iconPagination"
                   style="height: 300px; width: 300px;"
                 />
@@ -130,11 +176,28 @@
             </q-item-section>
             <q-item-section>
               <q-item-label overline>
-                <q-input label="Label" v-model="configuration.contact.phone.numbers[key].label" />
+                <q-input
+                  style="max-width: 350px"
+                  label="Label"
+                  v-model="configuration.contact.phone.numbers[key].label"
+                />
               </q-item-label>
               <q-item-label>
-                <q-input label="Number" v-model="configuration.contact.phone.numbers[key].number" />
+                <q-input
+                  style="max-width: 350px"
+                  label="Number"
+                  v-model="configuration.contact.phone.numbers[key].number"
+                />
               </q-item-label>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                round
+                flat
+                icon="remove"
+                color="red"
+                @click="configuration.contact.phone.numbers.splice(key, 1)"
+              />
             </q-item-section>
           </q-item>
         </q-list>
@@ -149,6 +212,7 @@
                 round
                 flat
                 icon="add"
+                color="green"
                 @click="configuration.contact.additionalInfo.fields.push({value: '', label: '' })"
               />
             </q-item-section>
@@ -157,45 +221,84 @@
             <q-item-section>
               <q-item-label overline>
                 <q-input
+                  style="max-width: 350px"
                   label="Label"
                   v-model="configuration.contact.additionalInfo.fields[key].label"
                 />
               </q-item-label>
               <q-item-label>
                 <q-input
+                  style="max-width: 350px"
                   label="Value"
                   v-model="configuration.contact.additionalInfo.fields[key].value"
                 />
               </q-item-label>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                round
+                flat
+                icon="remove"
+                color="red"
+                @click="configuration.contact.additionalInfo.fields.splice(key, 1)"
+              />
             </q-item-section>
           </q-item>
         </q-list>
       </q-tab-panel>
 
       <q-tab-panel name="route">
-        <q-input v-model="configuration.route.label" label="Label" />
+        <q-input style="max-width: 350px" v-model="configuration.route.label" label="Label" />
         <q-list separator bordered style="max-width: 300px">
           <q-item dense>
             <q-item-section>
               <q-item-label>Addresses</q-item-label>
             </q-item-section>
             <q-item-section side>
-              <q-btn round flat icon="add" @click="configuration.route.addresses.push(address)" />
+              <q-btn
+                round
+                flat
+                icon="add"
+                color="green"
+                @click="configuration.route.addresses.push(address)"
+              />
             </q-item-section>
           </q-item>
           <q-item v-for="(address, key) in configuration.route.addresses" :key="key">
             <q-item-section>
               <q-item-label overline>
-                <q-input label="Name" v-model="configuration.route.addresses[key].name" />
+                <q-input
+                  style="max-width: 350px"
+                  label="Name"
+                  v-model="configuration.route.addresses[key].name"
+                />
               </q-item-label>
               <q-item-label>
-                <q-input label="Address" v-model="configuration.route.addresses[key].address" />
                 <q-input
+                  style="max-width: 350px"
+                  label="Address"
+                  v-model="configuration.route.addresses[key].address"
+                />
+                <q-input
+                  style="max-width: 350px"
                   label="Postal code"
                   v-model="configuration.route.addresses[key].postalCode"
                 />
-                <q-input label="City" v-model="configuration.route.addresses[key].city" />
+                <q-input
+                  style="max-width: 350px"
+                  label="City"
+                  v-model="configuration.route.addresses[key].city"
+                />
               </q-item-label>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                round
+                flat
+                icon="remove"
+                color="red"
+                @click="configuration.route.addresses.splice(key, 1)"
+              />
             </q-item-section>
           </q-item>
         </q-list>
@@ -205,7 +308,7 @@
         <q-splitter :value="$q.screen.lt.md ? 20 : 10">
           <template #before>
             <q-tabs v-model="pagesTab" vertical class="bg-orange text-white">
-              <q-tab icon="add" @click="configuration.pages.push(page)" />
+              <q-tab icon="add" color="green" @click="configuration.pages.push({ ...page })" />
               <q-tab
                 v-for="(page, key) in configuration.pages"
                 :key="key"
@@ -217,15 +320,61 @@
           <template #after>
             <q-tab-panels v-model="pagesTab" animated>
               <q-tab-panel v-for="(page, key) in configuration.pages" :key="key" :name="key">
-                <q-input v-model="configuration.pages[key].name" label="Name" />
-                <q-input v-model="configuration.pages[key].description" label="Description" />
-                <q-input v-model="configuration.pages[key].label" label="Label" />
-                <q-input v-model="configuration.pages[key].url" label="URL" placeholder="/url" />
+                <div class="row">
+                  <q-btn-dropdown :icon="configuration.pages[key].icon" class="q-mr-lg">
+                    <q-input
+                      v-model="iconPickerFilter"
+                      label="Filter"
+                      outlined
+                      clearable
+                      class="q-ma-md"
+                    />
+                    <q-icon-picker
+                      v-model="configuration.pages[key].icon"
+                      icon-set="material-icons"
+                      tooltips
+                      :filter="iconPickerFilter"
+                      :pagination.sync="iconPagination"
+                      style="height: 300px; width: 300px;"
+                    />
+                  </q-btn-dropdown>
+                  <q-input
+                    style="max-width: 350px"
+                    v-model="configuration.pages[key].name"
+                    label="Name"
+                  />
+                </div>
+
                 <q-input
+                  style="max-width: 350px"
+                  v-model="configuration.pages[key].description"
+                  label="Description (for landing page)"
+                />
+
+                <q-input
+                  style="max-width: 350px"
+                  v-model="configuration.pages[key].cta"
+                  label="Call to action (for landing page)"
+                />
+
+                <q-input
+                  style="max-width: 350px"
+                  v-model="configuration.pages[key].label"
+                  label="Label (for menu)"
+                />
+                <q-input
+                  style="max-width: 350px"
+                  v-model="configuration.pages[key].url"
+                  label="URL"
+                  placeholder="/url"
+                />
+                <q-input
+                  style="max-width: 350px"
                   v-model="configuration.pages[key].meta.description"
                   label="SEO meta description"
                 />
                 <q-input
+                  style="max-width: 350px"
                   v-model="configuration.pages[key].meta.keywords"
                   label="SEO meta keywords"
                 />
@@ -254,6 +403,8 @@
                     </div>
                   </template>
                 </q-splitter>
+
+                <q-btn color="red" label="Delete page" @click="configuration.pages.splice(key)" />
               </q-tab-panel>
             </q-tab-panels>
           </template>
@@ -379,6 +530,7 @@ About page content`
     const page = ref({
       name: 'New',
       description: '',
+      cta: "",
       label: '',
       icon: '',
       content: '',
@@ -389,11 +541,12 @@ About page content`
       }
     })
     const filePicker: { value: QFile } = ref(null)
+    const iconPickerFilter = ref('')
 
     function downloadJson () {
       exportFile(
-        'configuration.json',
-        JSON.stringify(configuration, null, 2)
+        'qtemplater.json',
+        JSON.stringify(configuration.value, null, 2)
       )
     }
     function uploadJson () {
@@ -422,7 +575,8 @@ About page content`
       uploadJson,
       downloadJson,
       onFileUploaded,
-      filePicker
+      filePicker,
+      iconPickerFilter
     }
   }
 }

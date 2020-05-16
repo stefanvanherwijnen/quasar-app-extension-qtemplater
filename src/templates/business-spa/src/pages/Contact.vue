@@ -36,8 +36,7 @@
         </q-item-section>
       </q-item><% } %>
     </q-list><% } %>
-
-    <% if (contact.additionalInfo) { %><q-list>
+    <% if (contact.additionalInfo.fields.length) { %><q-list>
       <q-item-label header><%= contact.additionalInfo.label %></q-item-label><% for (const field of contact.additionalInfo.fields) { %>
       <q-item><% if (field.icon) { %>
         <q-item-section avatar>

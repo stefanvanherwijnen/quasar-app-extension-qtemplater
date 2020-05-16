@@ -16,7 +16,7 @@ export default {
     title: '<%= page.name %>',
     titleTemplate: title => `${title} - <%= website.name %>`,
     meta: {
-      description: { name: 'description', content: '<%= page.meta.description %>' },
+      description: { name: 'description', content: '<%= page.meta.description.replace(/'/g, "\\'") %>' },
       keywords: { name: 'keywords', content: '<%= page.meta.keywords %>' }
     }
   }

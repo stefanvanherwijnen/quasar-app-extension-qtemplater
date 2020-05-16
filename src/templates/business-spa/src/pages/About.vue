@@ -11,7 +11,7 @@ export default {
   name: 'PageAbout',
   meta: {
     title: '<%= about.label %>',
-    titleTemplate: title => '<%= about.label %> - Hondenvakantieboerderij Nicky'
+    titleTemplate: title => '<%= about.label %> - <%= website.name %>'
   }
 }
 </script>
