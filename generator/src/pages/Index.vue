@@ -34,16 +34,11 @@
       </q-tab-panel>
 
       <q-tab-panel name="landingPage">
-        <q-input style="max-width: 350px" v-model="configuration.landingPage.title" label="Title" />
+        <q-input style="max-width: 350px" v-model="configuration.landingPage.title" label="Page title" />
         <q-input
           style="max-width: 350px"
           v-model="configuration.landingPage.header"
           label="Header"
-        />
-        <q-input
-          style="max-width: 350px"
-          v-model="configuration.landingPage.description"
-          label="Description"
         />
         <q-input
           style="max-width: 350px"
@@ -65,6 +60,17 @@
           style="max-width: 350px"
           v-model="configuration.landingPage.CTA.route"
           label="Call to action route"
+        />
+
+        <q-input
+          style="max-width: 350px"
+          v-model="configuration.landingPage.meta.description"
+          label="SEO meta description"
+        />
+        <q-input
+          style="max-width: 350px"
+          v-model="configuration.landingPage.meta.keywords"
+          label="SEO meta keywords"
         />
       </q-tab-panel>
 
@@ -313,7 +319,7 @@
                 v-for="(page, key) in configuration.pages"
                 :key="key"
                 :name="key"
-                :label="page.name"
+                :label="page.title"
               />
             </q-tabs>
           </template>
@@ -340,8 +346,8 @@
                   </q-btn-dropdown>
                   <q-input
                     style="max-width: 350px"
-                    v-model="configuration.pages[key].name"
-                    label="Name"
+                    v-model="configuration.pages[key].title"
+                    label="Title"
                   />
                 </div>
 
@@ -456,6 +462,10 @@ export default {
         title: 'Home',
         header: 'Welcome message',
         content: 'A brief description',
+        meta: {
+          description: '',
+          keywords: ''
+        },
         CTA: {
           message: 'A call to action!',
           route: '/callToActionUrl'
@@ -528,9 +538,9 @@ About page content`
       city: ''
     })
     const page = ref({
-      name: 'New',
+      title: 'New',
       description: '',
-      cta: "",
+      cta: '',
       label: '',
       icon: '',
       content: '',

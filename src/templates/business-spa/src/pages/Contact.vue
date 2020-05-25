@@ -18,9 +18,8 @@
           </q-item-label>
         </q-item-section>
       </q-item><% } } %>
-    </q-list>
-
-    <% if (contact.phone) { %><q-list>
+    </q-list><% if (contact.phone) { %>
+    <q-list>
       <q-item-label header><%= contact.phone.label %></q-item-label><% for (const number of contact.phone.numbers) { %>
       <q-item><% if (number.icon) { %>
         <q-item-section avatar>
@@ -35,8 +34,8 @@
           </q-item-label>
         </q-item-section>
       </q-item><% } %>
-    </q-list><% } %>
-    <% if (contact.additionalInfo.fields.length) { %><q-list>
+    </q-list><% } %><% if (contact.additionalInfo.fields.length) { %>
+    <q-list>
       <q-item-label header><%= contact.additionalInfo.label %></q-item-label><% for (const field of contact.additionalInfo.fields) { %>
       <q-item><% if (field.icon) { %>
         <q-item-section avatar>

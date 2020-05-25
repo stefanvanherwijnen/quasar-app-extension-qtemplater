@@ -29,13 +29,15 @@ module.exports = function (api) {
       })
     }
     api.render(`./templates/${api.prompts.template}`, {
+      typescript: api.prompts.typescript,
       website: configuration.website,
       css: configuration.css,
       landingPage: configuration.landingPage,
       pages: configuration.pages,
       about: configuration.about,
       contact: configuration.contact,
-      route: configuration.route
+      route: configuration.route,
+      qualityMarks: configuration.qualityMarks
     })
 
     // Possibility for searching the contents of the pages

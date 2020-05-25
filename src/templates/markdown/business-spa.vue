@@ -11,10 +11,10 @@
 
 <script>
 export default {
-  name: 'Page<%= page.name %>',
+  name: 'Page<%= page.title %>',
   meta: {
-    title: '<%= page.name %>',
-    titleTemplate: title => `${title} - <%= website.name %>`,
+    title: '<%= page.title %>',
+    titleTemplate: title => `${title} - <%= website.title %>`,
     meta: {
       description: { name: 'description', content: '<%= page.meta.description.replace(/'/g, "\\'") %>' },
       keywords: { name: 'keywords', content: '<%= page.meta.keywords %>' }

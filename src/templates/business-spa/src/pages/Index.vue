@@ -9,9 +9,10 @@
         </template>
         <template>
           <q-card
-            class="q-pa-lg page-content q-ma-md"
+            class="page-content q-ma-md q-pa-lg"
             :style="{ 'background-color': $q.dark.isActive ? 'rgba(0, 0, 0, 0.7)' : 'rgba(240, 240, 240, 0.7)' }"
           >
+          <div class="q-ma-md">
             <h3>
               <%= landingPage.header %>
             </h3>
@@ -24,12 +25,13 @@
                   class="col"
                   to="<%= landingPage.CTA.route %>"
                   color="secondary"
-                  text-color="accent"
+                  text-color="grey-8"
                 >
                   <%= landingPage.CTA.message %>
                 </q-btn>
               </div>
             </q-card-actions>
+          </div>
           </q-card>
         </template>
       </q-parallax>
@@ -77,7 +79,11 @@ export default {
   name: 'PageIndex',
   meta: {
     title: 'Home',
-    titleTemplate: title => `${title} - <%= website.name %>`
+    titleTemplate: title => `${title} - <%= website.name %>`,
+    meta: {
+      description: { name: 'description', content: '<%= landingPage.meta.description.replace(/'/g, "\\'") %>' },
+      keywords: { name: 'keywords', content: '<%= landingPage.meta.keywords %>' }
+    }
   }
 }
 </script>
