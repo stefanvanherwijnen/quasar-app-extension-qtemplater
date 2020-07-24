@@ -1,6 +1,6 @@
 # QTemplater generator (generator)
 
-Create a template file
+Create a fully working Quasar website from a single configuration file using a pre-defined template.
 
 ## Install the dependencies
 ```bash

@@ -1,28 +1,28 @@
 {
   "name": "generator",
   "version": "0.0.1",
-  "description": "Create a template file",
+  "description": "Create a fully working Quasar website from a single configuration file using a pre-defined template.",
   "productName": "QTemplater generator",
-  "cordovaId": "org.cordova.quasar.app",
-  "capacitorId": "",
-  "author": "Stefan van Herwijnen",
+  "author": "Stefan van Herwijnen <stefan@devliert.info>",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
+    "lint": "eslint --ext .js,.ts,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
-    "@vue/composition-api": "^0.5.0",
-    "quasar": "^1.9.5"
+    "@vue/composition-api": "^0.6.4",
+    "axios": "^0.18.1",
+    "core-js": "^3.6.5",
+    "quasar": "^1.0.0",
+    "vue-i18n": "^8.0.0"
   },
   "devDependencies": {
-    "@quasar/app": "^1.6.2",
-    "@quasar/quasar-app-extension-qiconpicker": "^1.1.4",
-    "@quasar/quasar-app-extension-qmarkdown": "^1.0.24",
+    "@quasar/app": "^2.0.0",
+    "@quasar/quasar-app-extension-qmarkdown": "^1.0.29",
     "@types/node": "^10.17.15",
-    "@typescript-eslint/eslint-plugin": "^2.17.0",
-    "@typescript-eslint/parser": "^2.17.0",
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
@@ -33,15 +33,20 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.1.2"
   },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
   "engines": {
     "node": ">= 10.18.1",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
-  },
-  "browserslist": [
-    "last 1 version, not dead, ie >= 11"
-  ],
-  "resolutions": {
-    "@babel/parser": "7.7.5"
   }
 }
