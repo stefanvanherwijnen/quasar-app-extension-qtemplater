@@ -444,7 +444,7 @@ export default {
       itemsPerPage: 35,
       page: 0
     })
-    const configuration = ref({
+    const defaultConfiguration = {
       website: {
         name: 'Website name'
       },
@@ -530,7 +530,8 @@ About page content`
         content: 'Click on the link to open Google maps'
       },
       pages: []
-    })
+    }
+    const configuration = ref(defaultConfiguration)
     const address = ref({
       name: '',
       address: '',
@@ -550,7 +551,7 @@ About page content`
         keywords: ''
       }
     })
-    const filePicker: { value: QFile } = ref(null)
+    const filePicker = ref<QFile>()
     const iconPickerFilter = ref('')
 
     function downloadJson () {
@@ -560,15 +561,21 @@ About page content`
       )
     }
     function uploadJson () {
-      filePicker.value.pickFiles()
+      if (filePicker?.value) {
+        filePicker.value.pickFiles()
+      } else {
+        console.error('File picker not initialized')
+      }
     }
     function onFileUploaded (file: File) {
       const reader = new FileReader()
       reader.onload = e => {
-        if (typeof e.target.result === 'string') {
-          configuration.value = JSON.parse(e.target.result)
-        } else {
-          configuration.value = JSON.parse(e.target.result.toString())
+        if (e.target?.result) {
+          if (typeof e.target.result === 'string') {
+            configuration.value = JSON.parse(e.target.result) as typeof configuration.value
+          } else {
+            configuration.value = JSON.parse(e.target.result.toString()) as typeof configuration.value
+          }
         }
       }
       reader.readAsText(file)
