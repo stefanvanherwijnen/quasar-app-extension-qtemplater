@@ -1,6 +1,6 @@
 {
   "name": "quasar-app-extension-qtemplater",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Create a fully working Quasar website from a single configuration file using a pre-defined template.",
   "author": "Stefan van Herwijnen",
   "license": "MIT",

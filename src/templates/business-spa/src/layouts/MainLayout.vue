@@ -11,7 +11,7 @@
             >
           </router-link>-->
           <q-avatar square style="height: 50px; width: 50px" class="q-mt-xs q-mb-xs q-mr-lg">
-            <img alt="Logo" src="statics/icons/favicon-96x96.png" />
+            <img alt="Logo" src="icons/favicon-96x96.png" />
           </q-avatar>
           <q-btn
             v-if="$q.screen.gt.sm"
@@ -31,6 +31,21 @@
           /><% } %>
           <q-btn v-if="!$q.screen.gt.sm" icon="menu" @click="drawer = !drawer" />
           <q-space horizontal />
+          <q-btn v-if="$q.screen.gt.sm" borderless flat stretch label="<%= contact.label %>">
+            <q-menu>
+              <q-item to="/about" clickable>
+                <q-item-section><%= about.label %></q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item to="/contact" clickable>
+                <q-item-section><%= contact.label %></q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item to="/route" clickable>
+                <q-item-section><%= route.label %></q-item-section>
+              </q-item>
+            </q-menu>
+          </q-btn>
           <q-btn borderless flat stretch icon="more_vert">
             <q-menu>
               <q-item clickable @click="$q.dark.toggle()">
@@ -50,7 +65,7 @@
       <div class="q-ml-lg q-mr-md">
         <div class="row justify-center">
           <q-avatar style="height: 50px; width: 50px" class="q-mt-xs q-mb-xs q-mr-lg">
-            <img alt="Logo" src="statics/icons/favicon-96x96.png" />
+            <img alt="Logo" src="icons/favicon-96x96.png" />
           </q-avatar>
         </div>
         <div class="row">
@@ -71,6 +86,17 @@
             </q-item-section>
             <q-item-section><%= page.label %></q-item-section>
           </q-item><% } %>
+          <q-expansion-item icon="person" label="<%= contact.label %>">
+            <q-item to="/about" clickable>
+              <q-item-section><%= about.label %></q-item-section>
+            </q-item>
+            <q-item to="/contact" clickable>
+              <q-item-section><%= contact.label %></q-item-section>
+            </q-item>
+            <q-item to="/route" clickable>
+              <q-item-section><%= route.label %></q-item-section>
+            </q-item>
+          </q-expansion-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>
@@ -99,11 +125,18 @@
         <div class="col-3" />
         <div class="col-3"><% for (const qualityMark of qualityMarks) { %>
           <div class="row">
-            <a href="<%= qualityMark.url %>" target="_blank">
-              <q-avatar style="height: 75px; width: 75px" class="q-mt-xs q-mb-xs q-mr-lg">
+            <q-img
+              class="q-ma-md"
+              src="<%= qualityMark.imageUrl %>"
+              spinner-color="white"
+              style="max-width: 80px"
+              @click="openLink('<%= qualityMark.url %>')"
+            />
+            <!-- <a href="<%= qualityMark.url %>" target="_blank">
+              <q-avatar square style="height: 75px; width: 75px" class="q-mt-xs q-mb-xs q-mr-lg">
                 <img src="<%= qualityMark.imageUrl %>" />
               </q-avatar>
-            </a>
+            </a> -->
           </div><% } %>
         </div>
       </div>
@@ -146,42 +179,92 @@
   </q-layout>
 </template>
 
-<script>
-
-export default {
+<script lang="ts">
+import { defineComponent, ref, computed } from '@vue/composition-api'
+import { openURL } from 'quasar'
+export default defineComponent({
   name: 'MainLayout',
-  data () {
-    return {
-      drawer: false
-    }
+  props: {
+
   },
-  computed: {
-    screenSize: function () {
-      return this.$q.screen.name
-    },
-    largeScreen: function () {
-      if (['lg', 'xl'].includes(this.screenSize)) {
-        return this.screenSize
+  setup (props, context) {
+    const drawer = ref(false)
+    const screenSize = computed(() => {
+      return context.root.$q.screen.name
+    })
+    const largeScreen = computed(() => {
+      if (['lg', 'xl'].includes(screenSize.value)) {
+        return screenSize.value
       } else {
         return false
       }
-    },
-    fontSize: function () {
-      switch (this.screenSize) {
+    })
+    const fontSize = computed(() => {
+      switch (screenSize.value) {
         case 'lg':
           return '18px'
         case 'xl':
           return '32px'
       }
       return null
+    })
+
+    function isActiveRoute (route: string) {
+      return context.root.$route.path === route
     }
-  },
-  methods: {
-    isActiveRoute (route) {
-      return this.$route.path === route
+    function openLink (url: string) {
+      openURL(url)
+    }
+
+    return {
+      drawer,
+      screenSize,
+      largeScreen,
+      fontSize,
+      isActiveRoute,
+      openLink
     }
   }
-}
+})
+
+// import { openURL } from 'quasar'
+// export default {
+//   name: 'MainLayout',
+//   data () {
+//     return {
+//       drawer: false
+//     }
+//   },
+//   computed: {
+//     screenSize: function () {
+//       return this.$q.screen.name
+//     },
+//     largeScreen: function () {
+//       if (['lg', 'xl'].includes(this.screenSize)) {
+//         return this.screenSize
+//       } else {
+//         return false
+//       }
+//     },
+//     fontSize: function () {
+//       switch (this.screenSize) {
+//         case 'lg':
+//           return '18px'
+//         case 'xl':
+//           return '32px'
+//       }
+//       return null
+//     }
+//   },
+//   methods: {
+//     isActiveRoute (route: string) {
+//       return this.$route.path === route
+//     },
+//     openURL (url: string) {
+//       openURL(url)
+//     }
+//   }
+// }
 </script>
 
 <style>

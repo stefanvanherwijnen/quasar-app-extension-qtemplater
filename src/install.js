@@ -10,54 +10,57 @@ const { execSync } = require('child_process');
 
 module.exports = function (api) {
   let configuration
-  if (api.hasExtension('@quasar/qmarkdown')) {
-    if (!fs.existsSync(api.resolve.app('qtemplater.json'))) {
-      // Not so nice, but only way to prevent a "successful" install?
-      throw Error('Please place a qtemplater.json in the root of your app folder')
-    } else {
-      const file = fs.readFileSync(api.resolve.app('qtemplater.json'), 'utf8')
-      configuration = JSON.parse(file)
-    }
-    if (!fs.existsSync(api.resolve.app('icon.png'))) {
-      throw Error('Please place an icon.png in the root of your app folder')
-    }
-
-    for (let page of configuration.pages) {
-      api.renderFile(`./templates/markdown/${api.prompts.template}.vue`, `src/pages/${page.name}.vue`, {
-        page: page,
-        website: configuration.website
-      })
-    }
-    api.render(`./templates/${api.prompts.template}`, {
-      typescript: api.prompts.typescript,
-      website: configuration.website,
-      css: configuration.css,
-      landingPage: configuration.landingPage,
-      pages: configuration.pages,
-      about: configuration.about,
-      contact: configuration.contact,
-      route: configuration.route,
-      qualityMarks: configuration.qualityMarks
-    })
-
-    // Possibility for searching the contents of the pages
-    // const pagesPath = api.resolve.src('pages')
-    // const filenames = fs.readdirSync(pagesPath)
-    // for (let filename of filenames) {
-    //   const file = fs.readFileSync(`${pagesPath}/${filename}`, 'utf-8')
-    //   const start = file.indexOf('<template>') + 10
-    //   const end = file.indexOf('</template>')
-    //   const content = stripHtml(file.substring(start, end))
-    //   console.log(content)
-    // }
-    try {
-      console.log('Running \'icongenie generate -m spa -i icon.png\'')
-      const execResult = execSync('icongenie generate -m spa -i icon.png')
-    } catch (e) {
-
-    }
-  } else {
+  if (!api.hasExtension('@quasar/qmarkdown')) {
     console.log('Please instal QMarkdown first')
     console.log('quasar ext add @quasar/qmarkdown')
+  }
+  if (!api.hasExtension('@quasar/qmediaplayer')) {
+    console.log('Please instal QMediaplayer first')
+    console.log('quasar ext add @quasar/qmediaplayer')
+  }
+
+  if (!fs.existsSync(api.resolve.app('qtemplater.json'))) {
+    // Not so nice, but only way to prevent a "successful" install?
+    throw Error('Please place a qtemplater.json in the root of your app folder')
+  } else {
+    const file = fs.readFileSync(api.resolve.app('qtemplater.json'), 'utf8')
+    configuration = JSON.parse(file)
+  }
+  if (!fs.existsSync(api.resolve.app('icon.png'))) {
+    throw Error('Please place an icon.png in the root of your app folder')
+  }
+
+  for (let page of configuration.pages) {
+    api.renderFile(`./templates/markdown/${api.prompts.template}.vue`, `src/pages/${page.title}.vue`, {
+      page: page,
+      website: configuration.website
+    })
+  }
+  api.render(`./templates/${api.prompts.template}`, {
+    website: configuration.website,
+    css: configuration.css,
+    landingPage: configuration.landingPage,
+    pages: configuration.pages,
+    about: configuration.about,
+    contact: configuration.contact,
+    route: configuration.route,
+    qualityMarks: configuration.qualityMarks
+  })
+
+  // Possibility for searching the contents of the pages
+  // const pagesPath = api.resolve.src('pages')
+  // const filenames = fs.readdirSync(pagesPath)
+  // for (let filename of filenames) {
+  //   const file = fs.readFileSync(`${pagesPath}/${filename}`, 'utf-8')
+  //   const start = file.indexOf('<template>') + 10
+  //   const end = file.indexOf('</template>')
+  //   const content = stripHtml(file.substring(start, end))
+  //   console.log(content)
+  // }
+  try {
+    console.log('Running \'icongenie generate -m spa -i icon.png\'')
+    const execResult = execSync('icongenie generate -m spa -i icon.png')
+  } catch (e) {
+    console.log('Failed to run icongenie')
   }
 }

@@ -13,14 +13,15 @@
   </q-page>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api'
+export default defineComponent({
   name: 'PageAbout',
   meta: {
     title: '<%= about.label %>',
-    titleTemplate: title => `${title} - <%= website.name %>`
+    titleTemplate: (title: string) => `${title} - <%= website.name %>`
   }
-}
+})
 </script>
 
 <style>

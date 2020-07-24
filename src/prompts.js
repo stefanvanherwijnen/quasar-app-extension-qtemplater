@@ -24,12 +24,6 @@ module.exports = function () {
           short: 'Business SPA'
         }
       ]
-    },
-    {
-      name: 'typescript',
-      type: 'confirm',
-      message: 'Does your project use TypeScript?',
-      default: false
     }
   ]
 }

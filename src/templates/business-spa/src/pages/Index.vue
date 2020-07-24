@@ -4,8 +4,8 @@
 
       <q-parallax :height="800">
         <template #media>
-          <img v-if="$q.screen.width < 800" src="statics/images/landing/landing-portrait.jpg">
-          <img v-if="$q.screen.width >= 800" src="statics/images/landing/landing.jpg">
+          <img v-if="$q.screen.width < 800" src="images/landing/landing-portrait.jpg">
+          <img v-if="$q.screen.width >= 800" src="images/landing/landing.jpg">
         </template>
         <template>
           <q-card
@@ -37,6 +37,23 @@
       </q-parallax>
 
     </div>
+
+    <div class="row justify-center q-mt-lg"><% for (const qualityMark of qualityMarks) { %>
+      <div class="col-3 text-center q-ma-md">
+      <q-img
+        src="<%= qualityMark.imageUrl %>"
+        spinner-color="white"
+        style="max-width: 150px"
+        @click="openLink('<%= qualityMark.url %>')"
+      />
+        <!-- <a href="<%= qualityMark.url %>" target="_blank">
+          <q-avatar square :style="$q.screen.gt.md ? 'height: 100px; width: 100px' : 'height: 80px; width: 80px'">
+            <img src="<%= qualityMark.imageUrl %>" />
+          </q-avatar>
+        </a> -->
+      </div><% } %>
+    </div>
+
     <div class="row justify-center"><% for (const page of pages) { if (page.cta) { %>
       <q-card
         class="col-6 q-ma-md"
@@ -51,7 +68,7 @@
           </div>
           <div class="row justify-center">
             <div class="text-subtitle2">
-              <%= page.name %>
+              <%= page.title %>
             </div>
           </div>
           <div class="row justify-center">
@@ -74,16 +91,26 @@
   </q-page>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { openURL } from 'quasar'
+import { defineComponent } from '@vue/composition-api'
+export default defineComponent({
   name: 'PageIndex',
   meta: {
     title: 'Home',
-    titleTemplate: title => `${title} - <%= website.name %>`,
+    titleTemplate: (title: string) => `${title} - <%= website.name %>`,
     meta: {
       description: { name: 'description', content: '<%= landingPage.meta.description.replace(/'/g, "\\'") %>' },
       keywords: { name: 'keywords', content: '<%= landingPage.meta.keywords %>' }
     }
+  },
+  setup () {
+    function openLink (url: string) {
+      openURL(url)
+    }
+    return {
+      openLink
+    }
   }
-}
+})
 </script>
